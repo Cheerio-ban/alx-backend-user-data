@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-""" Using Bcrypt. """
+""" Using Bcryption in python """
 
 import bcrypt
 
