@@ -29,7 +29,7 @@ def before_request():
         return
     valid_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
                    '/api/v1/forbidden/']
-    if auth.require_auth(request.path, valid_paths):
+    if not auth.require_auth(request.path, valid_paths):
         return
     if not auth.authorization_header(request):
         abort(401, description="Unauthorized")
