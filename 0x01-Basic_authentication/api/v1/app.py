@@ -20,6 +20,23 @@ if auth_type == 'auth':
     auth = Auth()
 
 
+@app.before_request
+def before_request():
+    """
+    Filters each request. Runs immediately after request is called.
+    """
+    if not auth:
+        return
+    valid_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
+                   '/api/v1/forbidden/']
+    if auth.require_auth(request.path, valid_paths):
+        return
+    if not auth.authorization_header(request):
+        abort(401, description="Unauthorized")
+    if not auth.current_user(request):
+        abort(403, description="Forbidden")
+
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
