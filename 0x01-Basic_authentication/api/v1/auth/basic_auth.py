@@ -9,6 +9,7 @@ import base64
 from typing import TypeVar
 from models.user import User
 from models.base import DATA
+from flask import request
 
 
 class BasicAuth(Auth):
@@ -32,7 +33,7 @@ class BasicAuth(Auth):
         if not isinstance(base64_authorization_header, str):
             return None
         try:
-            base64.b64decode(base64_authorization_header)
+            cred = base64.b64decode(base64_authorization_header)
         except Exception:
             return None
         return base64.b64decode(base64_authorization_header).decode('utf-8')
@@ -63,3 +64,13 @@ class BasicAuth(Auth):
             if user.is_valid_password(user_pwd):
                 return user
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ BasicAuth authentication TheMatrix. """
+        authe = self.extract_base64_authorization_header(
+                request.headers.get('Authorization'))
+        dec_header = self.decode_base64_authorization_header(
+                authe)
+        user_cred = self.extract_user_credentials(dec_header)
+        ret_user = self.user_object_from_credentials(user_cred[0], user_cred[1])
+        return ret_user
