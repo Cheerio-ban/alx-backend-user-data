@@ -38,11 +38,11 @@ class BasicAuth(Auth):
             self, decoded_base64_authorization_header: str) -> (str, str):
         """ Extracts user email and password. """
         if not decoded_base64_authorization_header:
-            return
+            return None, None
         if not isinstance(decoded_base64_authorization_header, str):
-            return
+            return None, None
         if ':' not in decoded_base64_authorization_header:
-            return
+            return None, None
         col_index = decoded_base64_authorization_header.find(':')
         return (decoded_base64_authorization_header[:col_index],
                 decoded_base64_authorization_header[col_index+1:])
