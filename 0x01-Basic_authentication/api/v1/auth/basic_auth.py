@@ -71,6 +71,6 @@ class BasicAuth(Auth):
                 request.headers.get('Authorization'))
         dec_header = self.decode_base64_authorization_header(
                 authe)
-        user_cred = self.extract_user_credentials(dec_header)
-        ret_user = self.user_object_from_credentials(user_cred[0], user_cred[1])
+        user_cre = self.extract_user_credentials(dec_header)
+        ret_user = self.user_object_from_credentials(user_cre[0], user_cre[1])
         return ret_user
