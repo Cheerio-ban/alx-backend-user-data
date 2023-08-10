@@ -40,6 +40,6 @@ class Auth:
         """Returns a cookie from a request object"""
         if not request:
             return
-        if not request.cookie:
+        if not request.cookies:
             return
-        return request.cookie.get(getenv('SESSION_NAME'))
+        return request.cookies.get(getenv('SESSION_NAME'))
