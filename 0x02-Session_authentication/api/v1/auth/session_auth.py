@@ -30,3 +30,13 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None) -> Union[User, None]:
+        """Return the current user from db using its id from the session"""
+        session_id = self.session_cookie(request)
+        if not session_id:
+            return None
+        user_id = self.user_id_for_session_id(session_id)
+        if not user_id:
+            return None
+        return User.get(user_id)
