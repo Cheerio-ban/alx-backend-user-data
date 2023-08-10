@@ -6,13 +6,14 @@ Module of SessionAuth Object
 
 from api.v1.auth.auth import Auth
 import uuid
+from typing import Dict, Any
 
 
 class SessionAuth(Auth):
     """Session Auth base class. """
-    user_id_by_session_id = {}
+    user_id_by_session_id: Dict[str, Any] = {}
 
-    def create_session(self, user_id: str = None) -> Union[str, None]:
+    def create_session(self, user_id: str = None) -> str:
         """Creates a session."""
         if not user_id:
             return
