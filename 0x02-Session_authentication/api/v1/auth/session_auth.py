@@ -31,10 +31,3 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return
         return self.user_id_by_session_id.get(session_id)
-
-    def session_cookie(self, request=None):
-        """Returns a cookie from a request object"""
-        if not request:
-            return
-        setenv(SESSION_NAME) = '_my_session_id'
-        return request.cookie.get('_my_session_id')
