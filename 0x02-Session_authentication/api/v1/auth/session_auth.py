@@ -23,7 +23,6 @@ class SessionAuth(Auth):
         self.user_id_by_session_id[session_id] = user_id
         return session_id
 
-
     def user_id_for_session_id(self, session_id: str = None) -> str:
         """Gets a particular user id based on session id"""
         if not session_id:
