@@ -5,7 +5,6 @@ Module of SessionAuth Object
 """
 
 from api.v1.auth.auth import Auth
-from os import setenv
 import uuid
 from typing import Dict, Any, Union
 
