@@ -12,7 +12,7 @@ class SessionAuth(Auth):
     """Session Auth base class. """
     user_id_by_session_id = {}
 
-    def create_session(self, user_id: str = None) -> str:
+    def create_session(self, user_id: str = None) -> Union[str, None]:
         """Creates a session."""
         if not user_id:
             return
