@@ -7,6 +7,7 @@ Module of SessionAuth Object
 from api.v1.auth.auth import Auth
 import uuid
 from typing import Dict, Any, Union
+from models.user import User
 
 
 class SessionAuth(Auth):
