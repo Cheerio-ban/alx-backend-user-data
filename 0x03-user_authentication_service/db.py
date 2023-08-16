@@ -40,10 +40,21 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs: dict) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """ Find users in the database. """
         try:
             user = self._session.query(User).filter_by(**kwargs).one()
             return user
         except (NoResultFound, InvalidRequestError):
             raise
+
+    def update_user(self, user_id, **kwargs):
+        """Updates user in database"""
+        user = self.find_user_by(id=user_id)
+        columns = User.__table__.columns.keys()
+        for key, value in kwargs.items():
+            if key not in columns:
+                raise ValueError
+            setattr(user, key, value)
+        self._session.add(user)
+        self._session.commit()
